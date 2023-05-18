@@ -1,5 +1,6 @@
-#ifndef _SHELL_H_
-#define _SHELL_H_
+#ifndef SHELL_H
+#define SHELL_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -11,14 +12,15 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <stddef.h>
-#define MAXC_LEN 1024
-#define MAX_ARZ 64
-#define MAXA_LEN 128
+
 #define BUFFER_SIZE 1024
 
-void display_prompt(void);
-void read_command(char *buffer);
-int execute_command(char *command);
+extern char **environ;
 
+char *_strdup(char *str);
+char *read_line(void);
+char **parse_line(char *line);
+int execute_command(char **args);
+void free_args(char **args);
 
-#endif 
+#endif
