@@ -22,5 +22,6 @@ char *read_line(void);
 char **parse_line(char *line);
 int execute_command(char **args);
 void free_args(char **args);
+void execute_env(void);
 
 #endif
