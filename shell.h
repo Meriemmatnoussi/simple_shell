@@ -25,7 +25,6 @@ void free_args(char **args);
 void execute_env(void);
 char *read_line(void);
 void handle_exit(char *line, char **args);
-void handle_env(void);
 void handle_external_command(char *line, char **args);
 
 
