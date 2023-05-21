@@ -9,36 +9,36 @@ int main(void)
 {
 	char *line;
 	char **args;
-	int status;
 
 	do {
 		printf("$ ");
 		line = read_line();
+
+		if (line == NULL)
+			break;
+
 		args = parse_line(line);
 
 		if (args[0] == NULL)
+		{
+			free(line);
+			free_args(args);
 			continue;
+		}
 
 		if (strcmp(args[0], "exit") == 0)
 		{
-			free(line);
-			free_args(args);
-			exit(0);
+			handle_exit(line, args);
 		}
-
-		if (strcmp(args[0], "env") == 0)
+		else if (strcmp(args[0], "env") == 0)
 		{
-			execute_env();
-			free(line);
-			free_args(args);
-			continue;
+			handle_env();
 		}
-
-		status = execute_command(args);
-
-		free(line);
-		free_args(args);
-	} while (status);
+		else
+		{
+			handle_external_command(line, args);
+		}
+	} while (1);
 
 	return (0);
 }
