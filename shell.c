@@ -2,33 +2,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include "shell.h"
 
 #define MAX_COMMAND_LENGTH 100
-
-void execute_command(char *command) {
-    // Fork a child process
-    pid_t pid = fork();
-
-    if (pid < 0) {
-        perror("fork");
-        exit(1);
-    } else if (pid == 0) {
-        // Child process
-        if (execlp(command, command, NULL) == -1) {
-            perror("execlp");
-            exit(1);
-        }
-    } else {
-        // Parent process
-        int status;
-        waitpid(pid, &status, 0);
-
-        if (status != 0) {
-            fprintf(stderr, "./shell: %s: command not found\n", command);
-        }
-    }
-}
 
 int main(void) {
     char command[MAX_COMMAND_LENGTH];
@@ -50,7 +25,27 @@ int main(void) {
             continue;
         }
 
-        execute_command(command);
+        // Fork a child process
+        pid_t pid = fork();
+
+        if (pid < 0) {
+            perror("fork");
+            exit(1);
+        } else if (pid == 0) {
+            // Child process
+            if (execlp(command, command, NULL) == -1) {
+                perror("execlp");
+                exit(1);
+            }
+        } else {
+            // Parent process
+            int status;
+            waitpid(pid, &status, 0);
+
+            if (status != 0) {
+                fprintf(stderr, "./shell: %s: command not found\n", command);
+            }
+        }
     }
 
     return 0;
