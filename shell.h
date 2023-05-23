@@ -17,6 +17,7 @@
 
 extern char **environ;
 
+int execute_command(char *command);
 char *_strdup(char *str);
 char *read_line(void);
 char **parse_line(char *line);
