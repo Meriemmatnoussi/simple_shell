@@ -3,12 +3,17 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>  /* Include for pid_t */
-#include <sys/wait.h>   /* Include for wait() */
+#include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
-/* Function Prototypes */
+#define TOKEN_BUFFER_SIZE 64
+#define TOKEN_DELIMITERS " \t\r\n\a"
 
-void exec_command(char *command);
+char *read_input();
+char **split_input(char *input);
+void shell_loop();
+int execute(char **args);
 
-
-#endif /* SHELL_H */
+#endif
