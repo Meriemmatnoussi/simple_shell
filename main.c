@@ -1,4 +1,7 @@
 #include "shell.h"
+/**
+ * shell_loop - Main loop for the shell program
+ */
 
 void shell_loop(void)
 {
@@ -16,14 +19,19 @@ int status;
 
 	free(input);
 	free(args);
+	} while (status);
 }
-	while (status);
-}
+
+/**
+ * execute - Execute a command with the given arguments
+ * @args: Array of command arguments
+ * Return: 1 if the shell should continue, 0 otherwise
+ */
 
 int execute(char **args)
 {
 	pid_t pid;
-int status;
+	int status;
 
 	pid = fork();
 	if (pid < 0)
