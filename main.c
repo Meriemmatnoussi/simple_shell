@@ -2,11 +2,11 @@
 
 void shell_loop()
 {
-    char *input;
-    char **args;
-    int status;
+char *input;
+char **args;
+int status;
 
-    do {
+        do {
         printf("$ ");
         input = read_input();
         args = split_input(input);
@@ -14,30 +14,38 @@ void shell_loop()
 
         free(input);
         free(args);
-    } while (status);
+}
+        while (status);
 }
 
 int execute(char **args)
 {
-    pid_t pid;
-    int status;
+        pid_t pid;
+int status;
 
-    pid = fork();
-    if (pid < 0) {
+        pid = fork();
+        if (pid < 0)
+        {
         perror("fork");
         exit(EXIT_FAILURE);
-    } else if (pid == 0) {
-
-        if (execvp(args[0], args) == -1) {
-            perror("execvp");
-            exit(EXIT_FAILURE);
         }
-    } else {
+        else if (pid == 0)
+        {
 
-        do {
-            waitpid(pid, &status, WUNTRACED);
-        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
-    }
+        if (execvp(args[0], args) == -1)
+        {
+        perror("execvp");
+        exit(EXIT_FAILURE);
+        }
+        }
+        else
+        {
+        do
+{
+        waitpid(pid, &status, WUNTRACED);
+        }
+        while (!WIFEXITED(status) && !WIFSIGNALED(status));
+        }
 
-    return 1;
+        return (1);
 }
