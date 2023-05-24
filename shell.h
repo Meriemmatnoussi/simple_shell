@@ -7,7 +7,8 @@
 #include <sys/wait.h>   /* Include for wait() */
 
 /* Function Prototypes */
-void shell_loop(void);
-int exec_command(char *command);
+
+void exec_command(char *command);
+
 
 #endif /* SHELL_H */
