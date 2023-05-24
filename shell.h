@@ -3,30 +3,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/stat.h>
-#include <limits.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <stddef.h>
+#include <sys/types.h>  /* Include for pid_t */
+#include <sys/wait.h>   /* Include for wait() */
 
-#define BUFFER_SIZE 1024
+/* Function Prototypes */
+void shell_loop(void);
+int exec_command(char *command);
 
-extern char **environ;
-
-int execute_command(char *command);
-char *_strdup(char *str);
-char *read_line(void);
-char **parse_line(char *line);
-int execute_command(char **args);
-void free_args(char **args);
-void execute_env(void);
-char *read_line(void);
-void handle_exit(char *line, char **args);
-void handle_external_command(char *line, char **args);
-
-
-#endif
+#endif /* SHELL_H */
