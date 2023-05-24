@@ -1,4 +1,7 @@
 #include "shell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 char *read_input()
 {
@@ -15,20 +18,24 @@ char **split_input(char *input)
     char **tokens = malloc(bufsize * sizeof(char *));
     char *token;
 
-    if (!tokens) {
+    if (!tokens)
+    {
         fprintf(stderr, "Allocation error\n");
         exit(EXIT_FAILURE);
     }
 
     token = strtok(input, TOKEN_DELIMITERS);
-    while (token != NULL) {
+    while (token != NULL)
+    {
         tokens[position] = token;
         position++;
 
-        if (position >= bufsize) {
+        if (position >= bufsize)
+        {
             bufsize += TOKEN_BUFFER_SIZE;
             tokens = realloc(tokens, bufsize * sizeof(char *));
-            if (!tokens) {
+            if (!tokens)
+            {
                 fprintf(stderr, "Allocation error\n");
                 exit(EXIT_FAILURE);
             }
