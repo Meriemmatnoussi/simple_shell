@@ -13,7 +13,7 @@
 
 char *read_input();
 char **split_input(char *input);
-void shell_loop();
+void shell_loop(void);
 int execute(char **args);
 
 #endif
