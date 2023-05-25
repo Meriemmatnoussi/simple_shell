@@ -12,7 +12,7 @@
 #define TOKEN_DELIMITERS " \t\r\n\a"
 
 char *read_input();
-char **split_input(char *input);
+char **split_input(char *input_str);
 void shell_loop(void);
 int execute(char **args);
 
