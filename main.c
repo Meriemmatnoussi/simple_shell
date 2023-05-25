@@ -1,7 +1,9 @@
 #include "shell.h"
+#include "helpers.h"
 
-int main(void)
-{
-    shell_loop();
+int main() {
+    // Execute the shell
+    shell_execute();
+
     return 0;
 }

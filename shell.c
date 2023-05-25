@@ -1,47 +1,23 @@
 #include "shell.h"
 
-void shell_loop(void)
-{
-    char *input_str;
-    char **args;
-    int execution_status;
+// Implementation of shell_execute function
+void shell_execute() {
+    char input[MAX_COMMAND_LENGTH];
 
-    do {
-        printf("$ ");
-        input_str = read_input();
-        args = split_input(input_str);
-        execution_status = execute(args);
+    while (1) {
+        printf("$ > ");
+        fgets(input, MAX_COMMAND_LENGTH, stdin);
 
-        free(input_str);
-        free(args);
-    } while (execution_status);
-}
+        // Remove trailing newline character
+        input[strcspn(input, "\n")] = '\0';
 
-int execute(char **args)
-{
-    pid_t process_id;
-    int status;
-
-    process_id = fork();
-    if (process_id < 0)
-    {
-        perror("fork");
-        exit(EXIT_FAILURE);
-    }
-    else if (process_id == 0)
-    {
-        if (execvp(args[0], args) == -1)
-        {
-            perror("execvp");
-            exit(EXIT_FAILURE);
+        // Exit if user enters "exit" command
+        if (strcmp(input, "exit") == 0) {
+            printf("Exiting shell...\n");
+            break;
         }
-    }
-    else
-    {
-        do {
-            waitpid(process_id, &status, WUNTRACED);
-        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
-    }
 
-    return 1;
+        // Execute the command
+        system(input);
+    }
 }
