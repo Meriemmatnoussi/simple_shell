@@ -1,12 +1,8 @@
 #ifndef SHELL_H
 #define SHELL_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+void print_prompt();
+char* read_command();
+void execute_command(char* command);
 
-#define MAX_COMMAND_LENGTH 100
-
-void shell_execute();
-
-#endif  // SHELL_H
+#endif
