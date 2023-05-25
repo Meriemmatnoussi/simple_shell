@@ -5,20 +5,19 @@
  */
 void shell_loop(void)
 {
-    char *input;
-    char **args;
-    int status;
+	char *input;
+	char **args;
+	int status;
 
-    do
-    {
-        printf("$ ");
-        input = read_input();
-        args = split_input(input);
-        status = execute(args);
+	do {
+	printf("$ ");
+	input = read_input();
+	args = split_input(input);
+	status = execute(args);
 
-        free(input);
-        free(args);
-    } while (status);
+	free(input);
+	free(args);
+	} while (status);
 }
 
 /**
@@ -28,37 +27,35 @@ void shell_loop(void)
  */
 int execute(char **args)
 {
-    if (args[0] != NULL && strcmp(args[0], "exit") == 0)
-    {
-        // Handle the exit command here
-        printf("Exiting the shell...\n");
-        return 0; // Return 0 to indicate that the shell should exit
-    }
+	if (args[0] != NULL && strcmp(args[0], "exit") == 0)
+	{
+	printf("Exiting the shell...\n");
+	return (0);
+	}
 
-    pid_t pid;
-    int status;
+	pid_t pid;
+	int status;
 
-    pid = fork();
-    if (pid < 0)
-    {
-        perror("fork");
-        exit(EXIT_FAILURE);
-    }
-    else if (pid == 0)
-    {
-        if (execvp(args[0], args) == -1)
-        {
-            perror("execvp");
-            exit(EXIT_FAILURE);
-        }
-    }
-    else
-    {
-        do
-        {
-            waitpid(pid, &status, WUNTRACED);
-        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
-    }
+	pid = fork();
+	if (pid < 0)
+	{
+	perror("fork");
+	exit(EXIT_FAILURE);
+	}
+	else if (pid == 0)
+	{
+	if (execvp(args[0], args) == -1)
+	{
+	perror("execvp");
+	exit(EXIT_FAILURE);
+	}
+	}
+	else
+	{
+	do {
+	waitpid(pid, &status, WUNTRACED);
+	} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+	}
 
-    return 1;
+	return (1);
 }
